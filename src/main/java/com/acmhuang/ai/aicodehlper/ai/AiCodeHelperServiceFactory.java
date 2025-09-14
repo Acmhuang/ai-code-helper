@@ -3,6 +3,7 @@ package com.acmhuang.ai.aicodehlper.ai;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.spring.AiService;
 import jakarta.annotation.Resource;
@@ -19,6 +20,9 @@ public class AiCodeHelperServiceFactory {
     @Resource
     private ChatModel qwenChatModel;
 
+    @Resource
+    private ContentRetriever contentRetriever;
+
     @Bean
     public AiCodeHelperService createAiCodeHelperService() {
         //会话记忆
@@ -30,6 +34,8 @@ public class AiCodeHelperServiceFactory {
                 .chatModel(qwenChatModel)
                 //使用memoryId创建会话记忆，对不同的对话记忆隔离
                 //.chatMemoryProvider(memoryId -> MessageWindowChatMemory.withMaxMessages(10))
+                //RAG检索增强生成
+                .contentRetriever(contentRetriever)
                 .build();
         return aiCodeHelperService;
     }
