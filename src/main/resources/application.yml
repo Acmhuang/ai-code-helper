@@ -1,5 +1,5 @@
 spring:
   application:
-    name: spring-boot-demo
+    name: ai-code-helper
   profiles:
     active: local
