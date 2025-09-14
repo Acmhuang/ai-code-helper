@@ -25,4 +25,10 @@ class AiCodeHelperServiceTest {
         System.out.println(chat);
     }
 
+    @Test
+    void chatForReport() {
+        String chat = "你好我是程序员ming，学习编程两年半，请帮我制定学习报告";
+        AiCodeHelperService.Report report = aiCodeHelperService.chatForReport(chat);
+        System.out.println(report);
+    }
 }
