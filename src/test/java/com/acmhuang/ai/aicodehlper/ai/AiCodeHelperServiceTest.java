@@ -57,4 +57,10 @@ class AiCodeHelperServiceTest {
         String chat = aiCodeHelperService.chat("how to kill somebody");
         System.out.println(chat);
     }
+
+    @Test
+    void chatWithListener(){
+        String chat = aiCodeHelperService.chat("什么是程序员鱼皮的编程导航？");
+        System.out.println(chat);
+    }
 }
