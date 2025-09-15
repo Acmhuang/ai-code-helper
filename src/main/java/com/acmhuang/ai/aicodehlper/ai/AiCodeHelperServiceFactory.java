@@ -1,6 +1,7 @@
 package com.acmhuang.ai.aicodehlper.ai;
 
 import com.acmhuang.ai.aicodehlper.ai.tools.InterviewQuestionTool;
+import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
@@ -24,6 +25,9 @@ public class AiCodeHelperServiceFactory {
     @Resource
     private ContentRetriever contentRetriever;
 
+    @Resource
+    private McpToolProvider mcpToolProvider;
+
     @Bean
     public AiCodeHelperService createAiCodeHelperService() {
         //会话记忆
@@ -38,6 +42,7 @@ public class AiCodeHelperServiceFactory {
                 //RAG检索增强生成
                 .contentRetriever(contentRetriever)
                 .tools(new InterviewQuestionTool())
+                .toolProvider(mcpToolProvider)
                 .build();
         return aiCodeHelperService;
     }

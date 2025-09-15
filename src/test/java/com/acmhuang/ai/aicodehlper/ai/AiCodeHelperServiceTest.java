@@ -45,4 +45,10 @@ class AiCodeHelperServiceTest {
         String chat = aiCodeHelperService.chat("有哪些常见的计算机网络面试题？");
         System.out.println(chat);
     }
+
+    @Test
+    void chatWithMcp(){
+        String chat = aiCodeHelperService.chat("什么是程序员鱼皮的编程导航？");
+        System.out.println(chat);
+    }
 }
