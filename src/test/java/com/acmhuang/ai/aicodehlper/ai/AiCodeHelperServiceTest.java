@@ -39,4 +39,10 @@ class AiCodeHelperServiceTest {
         System.out.println(result.sources());
         System.out.println(result.content());
     }
+
+    @Test
+    void chatWithTools(){
+        String chat = aiCodeHelperService.chat("有哪些常见的计算机网络面试题？");
+        System.out.println(chat);
+    }
 }

@@ -1,5 +1,6 @@
 package com.acmhuang.ai.aicodehlper.ai;
 
+import com.acmhuang.ai.aicodehlper.ai.tools.InterviewQuestionTool;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
@@ -36,6 +37,7 @@ public class AiCodeHelperServiceFactory {
                 //.chatMemoryProvider(memoryId -> MessageWindowChatMemory.withMaxMessages(10))
                 //RAG检索增强生成
                 .contentRetriever(contentRetriever)
+                .tools(new InterviewQuestionTool())
                 .build();
         return aiCodeHelperService;
     }
