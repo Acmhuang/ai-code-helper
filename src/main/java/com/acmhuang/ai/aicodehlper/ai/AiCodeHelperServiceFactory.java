@@ -5,6 +5,7 @@ import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.chat.StreamingChatModel;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.spring.AiService;
@@ -28,17 +29,22 @@ public class AiCodeHelperServiceFactory {
     @Resource
     private McpToolProvider mcpToolProvider;
 
+    @Resource
+    private StreamingChatModel qwenStreamingChatModel;
+
     @Bean
     public AiCodeHelperService createAiCodeHelperService() {
         //会话记忆
         ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
         //构造Ai Service
         AiCodeHelperService aiCodeHelperService = AiServices.builder(AiCodeHelperService.class)
-                .chatMemory(chatMemory)
-                //会话记忆
+                //流式输出
+                .streamingChatModel(qwenStreamingChatModel)
                 .chatModel(myQwenChatModel)
+                //会话记忆
+                .chatMemory(chatMemory)
                 //使用memoryId创建会话记忆，对不同的对话记忆隔离
-                //.chatMemoryProvider(memoryId -> MessageWindowChatMemory.withMaxMessages(10))
+                .chatMemoryProvider(memoryId -> MessageWindowChatMemory.withMaxMessages(10))
                 //RAG检索增强生成
                 .contentRetriever(contentRetriever)
                 .tools(new InterviewQuestionTool())
